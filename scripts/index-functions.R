@@ -155,6 +155,34 @@ sensitivity <- function(macroclimate, microclimate){
   return(mean(ratios, na.rm=TRUE))
 }
 
+# further adapted version
+change_ratio <- function(macroclimate, microclimate){
+  
+  macro = macroclimate[!is.na(macroclimate)]
+  micro = microclimate[!is.na(microclimate)]
+  
+  if(length(macro) != length(micro)){
+    print("Error: Macroclimate and microclimate do not contain the same number of observations. Please correct.")
+  }
+  
+  else {
+    ratios <- numeric(length(macroclimate) - 1)
+    for (i in 2:(length(macroclimate) - 1)) {
+      diff_macro <- round(macroclimate[i],2) - round(macroclimate[i - 1],2)
+      diff_micro <- round(microclimate[i],2) - round(microclimate[i - 1],2)
+      
+      if (is.na(diff_macro)==TRUE){
+        ratios[i - 1] <- NA
+      } else if(diff_macro == 0) {
+        ratios[i - 1] <- NA  # handle division by zero
+      } else {
+        ratios[i - 1] <- diff_micro / diff_macro
+      }
+    }
+    return(median(ratios, na.rm=TRUE))
+  }
+}
+
 
 ### EXTREME INDICES ###
 
@@ -193,18 +221,6 @@ p95_daily_maxima_offset <- function(time.index, macroclimate, microclimate){
   return(max_offset_p95)
 }
 
-# offset of maxima corrected by mean difference
-specific_offset_of_maxima <- function(macroclimate, microclimate, percentile = .99){
-  #calculate mean difference and set averages equal
-  mean_offset <- mean(microclimate - macroclimate, na.rm = TRUE)
-  new_microclimate <- microclimate - mean_offset
-  #calculate offset of maxima as before
-  macro_max <- unname(quantile(macroclimate, percentile, na.rm = TRUE))
-  micro_max <- unname(quantile(new_microclimate, percentile, na.rm = TRUE))
-  offset_of_maxima <- micro_max - macro_max
-  return(offset_of_maxima)
-}
-
 
 #### Minima ####
 
@@ -218,7 +234,7 @@ offset_of_minima <- function(macroclimate, microclimate, percentile = .05){
 }
 
 # Mean offset of daily minima
-offset_of_minima_mean_daily <- function(time.index, macroclimate, microclimate, percentile = 1.00){
+offset_of_minima_mean_daily <- function(time.index, macroclimate, microclimate, percentile = .05){
   df <- data.frame(time.index = time.index, macroclimate = macroclimate, microclimate = microclimate)
   
   df <- df %>% dplyr::group_by(day = lubridate::yday(time.index)) %>%
@@ -242,22 +258,9 @@ p5_daily_minima_offset <- function(time.index, macroclimate, microclimate){
   return(min_offset_p5)
 }
 
-# offset of minima corrected by mean difference
-specific_offset_of_minima <- function(macroclimate, microclimate, percentile = .01){
-  #calculate mean difference and set averages equal
-  mean_offset <- mean(microclimate - macroclimate, na.rm = TRUE)
-  new_microclimate <- microclimate - mean_offset
-  #calculate offset of maxima as before
-  macro_min <- unname(quantile(macroclimate, percentile, na.rm = TRUE))
-  micro_min <- unname(quantile(new_microclimate, percentile, na.rm = TRUE))
-  offset_of_minima <- micro_min - macro_min
-  return(offset_of_minima)
-}
 
 
-
-
-### all indices together ###
+### calculate all indices together ###
 
 microclimate_indices <- function(macroclimate, microclimate, time.index){
   
@@ -273,7 +276,6 @@ microclimate_indices <- function(macroclimate, microclimate, time.index){
   sd_offset_daily <- sd_offset_mean_daily(time.index = time.index, macroclimate = macroclimate, microclimate = microclimate)
   amplitude_offset.95 <- amplitude_offset(macroclimate = macroclimate, microclimate = microclimate, percentile_max = .95, percentile_min = .05)
   amplitude_offset.975 <- amplitude_offset(macroclimate = macroclimate, microclimate = microclimate, percentile_max = .975, percentile_min = .025)
-  amplitude_offset1.00 <- amplitude_offset(macroclimate = macroclimate, microclimate = microclimate, percentile_max = 1, percentile_min = 0)
   daily_amp <- amplitude_offset_mean_daily(time.index = time.index, macroclimate = macroclimate, microclimate = microclimate)
   amplitude_r.95 <- amplitude_ratio(macroclimate = macroclimate, microclimate = microclimate, percentile_max = .95, percentile_min = .05)
   amplitude_r.975 <- amplitude_ratio(macroclimate = macroclimate, microclimate = microclimate, percentile_max = .975, percentile_min = .25)
@@ -282,6 +284,7 @@ microclimate_indices <- function(macroclimate, microclimate, time.index){
   cv_r <- CV_ratio(macroclimate = macroclimate, microclimate = microclimate)
   slope <- slope(macroclimate = macroclimate, microclimate = microclimate)
   sensitivity <- sensitivity(macroclimate = macroclimate, microclimate = microclimate)
+  change_ratio <- change_ratio(macroclimate = macroclimate, microclimate = microclimate)
   corr <- cor(macroclimate, microclimate, use="complete.obs")
   
   #the Es
@@ -293,9 +296,6 @@ microclimate_indices <- function(macroclimate, microclimate, time.index){
   daily_max_offset.975 <- offset_of_maxima_mean_daily(time.index = time.index, macroclimate = macroclimate, microclimate = microclimate, percentile = .975)
   daily_max_offset1.00 <- offset_of_maxima_mean_daily(time.index = time.index, macroclimate = macroclimate, microclimate = microclimate, percentile = 1)
   p95_daily_max <- p95_daily_maxima_offset(time.index = time.index, macroclimate = macroclimate, microclimate = microclimate)
-  max_offset_mc.95 <- specific_offset_of_maxima(macroclimate = macroclimate, microclimate = microclimate, percentile = .95)
-  max_offset_mc.975 <- specific_offset_of_maxima(macroclimate = macroclimate, microclimate = microclimate, percentile = .975)
-  max_offset_mc1.00 <- specific_offset_of_maxima(macroclimate = macroclimate, microclimate = microclimate, percentile = 1)
   ## Emin
   min_offset.05 <- offset_of_minima(macroclimate = macroclimate, microclimate = microclimate, percentile = .05)
   min_offset.025 <- offset_of_minima(macroclimate = macroclimate, microclimate = microclimate, percentile = .025)
@@ -304,9 +304,6 @@ microclimate_indices <- function(macroclimate, microclimate, time.index){
   daily_min_offset.025 <- offset_of_minima_mean_daily(time.index = time.index, macroclimate = macroclimate, microclimate = microclimate, percentile = .025)
   daily_min_offset.00 <- offset_of_minima_mean_daily(time.index = time.index, macroclimate = macroclimate, microclimate = microclimate, percentile = 0)
   p5_daily_min <- p5_daily_minima_offset(time.index = time.index, macroclimate = macroclimate, microclimate = microclimate)
-  min_offset_mc.05 <- specific_offset_of_minima(macroclimate = macroclimate, microclimate = microclimate, percentile = .05)
-  min_offset_mc.025 <- specific_offset_of_minima(macroclimate = macroclimate, microclimate = microclimate, percentile = .025)
-  min_offset_mc.00 <- specific_offset_of_minima(macroclimate = macroclimate, microclimate = microclimate, percentile = 0)
   
   #return named vector
   indices <- c(# the As
@@ -319,7 +316,6 @@ microclimate_indices <- function(macroclimate, microclimate, time.index){
                "sd_offset_mean_daily" = sd_offset_daily,
                "amplitude_offset.95" = amplitude_offset.95,
                "amplitude_offset.975" = amplitude_offset.975,
-               "amplitude_offset1.00" = amplitude_offset1.00,
                "amplitude_offset_mean_daily" = daily_amp,
                "amplitude_ratio.95" = amplitude_r.95,
                "amplitude_ratio.975" = amplitude_r.975,
@@ -328,6 +324,7 @@ microclimate_indices <- function(macroclimate, microclimate, time.index){
                "CV_ratio" = cv_r,
                "slope" = slope,
                "sensitivity" = sensitivity,
+               "change_ratio" = change_ratio,
                "correlation_micro_macro" = corr,
                # the Es
                ## Emax
@@ -338,9 +335,6 @@ microclimate_indices <- function(macroclimate, microclimate, time.index){
                "offset_of_maxima_mean_daily.975" = daily_max_offset.975,
                "offset_of_maxima_mean_daily1.00" = daily_max_offset1.00,
                "p95_daily_maxima_offset" = p95_daily_max,
-               "specific_offset_of_maxima.95" = max_offset_mc.95,
-               "specific_offset_of_maxima.975" = max_offset_mc.975,
-               "specific_offset_of_maxima1.00" = max_offset_mc1.00,
                ## Emin
                "offset_of_minima.05" = min_offset.05,
                "offset_of_minima.025" = min_offset.025,
@@ -348,10 +342,7 @@ microclimate_indices <- function(macroclimate, microclimate, time.index){
                "offset_of_minima_mean_daily.05" = daily_min_offset.05,
                "offset_of_minima_mean_daily.025" = daily_min_offset.025,
                "offset_of_minima_mean_daily.00" = daily_min_offset.00,
-               "p5_daily_minima_offset" = p5_daily_min,
-               "specific_offset_of_minima.05" = min_offset_mc.05,
-               "specific_offset_of_minima.025" = min_offset_mc.025,
-               "specific_offset_of_minima.00" = min_offset_mc.00) 
+               "p5_daily_minima_offset" = p5_daily_min) 
 
   return(indices) 
 }

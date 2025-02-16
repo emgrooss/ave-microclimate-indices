@@ -1,18 +1,19 @@
+## Test the simulation by calculating its outputs
+
 rm(list=ls())
 
 library(tidyverse)
 
-### CREATING DATAFRAMES
-#for each parameter with the others at 0
+## Creating dataframes for each parameter with the others at 0
 
-files = list.files("1-data/1-2-microclimate-simulations/1-2-1-3-microclimate-simulations_FINAL/")
+files = list.files("data/2-microclimate-simulations/microclimate-simulations/")
 
-# v and e 0
+# a varies, v = 0 and e = 0
 
 simresults_a <- data.frame(a = numeric(), v = numeric(), e = numeric(),
                            d_a = numeric(), d_v = numeric(), d_emax = numeric(), d_emin = numeric())
 for(i in files){
-  data = read_rds(paste("1-data/1-2-microclimate-simulations/1-2-1-3-microclimate-simulations_FINAL/", i, sep=""))
+  data = read_rds(paste("data/2-microclimate-simulations/microclimate-simulations/", i, sep=""))
   climates = data[["Data"]]
   parameters = data[["Parameters"]]
   a = as.numeric(parameters["a"])
@@ -38,14 +39,14 @@ for(i in files){
   }
 }
 
-write.csv(simresults_a, "1-data/1-2-microclimate-simulations/1-2-2-3-simulation-test_FINAL/simresults_a.csv")
+write.csv(simresults_a, "data/2-microclimate-simulations/simulation-test/simresults_a.csv")
 
-# a and e 0
+# v varies, a = 0 and e = 0
 
 simresults_v <- data.frame(a = numeric(), v = numeric(), e = numeric(),
                            d_a = numeric(), d_v = numeric(), d_emax = numeric(), d_emin = numeric())
 for(i in files){
-  data = read_rds(paste("1-data/1-2-microclimate-simulations/1-2-1-3-microclimate-simulations_FINAL/", i, sep=""))
+  data = read_rds(paste("data/2-microclimate-simulations/microclimate-simulations/", i, sep=""))
   climates = data[["Data"]]
   parameters = data[["Parameters"]]
   a = as.numeric(parameters["a"])
@@ -71,14 +72,14 @@ for(i in files){
   }
 }
 
-write.csv(simresults_v, "1-data/1-2-microclimate-simulations/1-2-2-3-simulation-test_FINAL/simresults_v.csv")
+write.csv(simresults_v, "data/2-microclimate-simulations/simulation-test/simresults_v.csv")
 
-# a and v 0
+# e varies, a = 0 and v = 0
 
 simresults_e <- data.frame(a = numeric(), v = numeric(), e = numeric(),
                            d_a = numeric(), d_v = numeric(), d_emax = numeric(), d_emin = numeric())
 for(i in files){
-  data = read_rds(paste("1-data/1-2-microclimate-simulations/1-2-1-3-microclimate-simulations_FINAL/", i, sep=""))
+  data = read_rds(paste("data/2-microclimate-simulations/microclimate-simulations/", i, sep=""))
   climates = data[["Data"]]
   parameters = data[["Parameters"]]
   a = as.numeric(parameters["a"])
@@ -104,4 +105,4 @@ for(i in files){
   }
 }
 
-write.csv(simresults_e, "1-data/1-2-microclimate-simulations/1-2-2-3-simulation-test_FINAL/simresults_e.csv")
+write.csv(simresults_e, "data/2-microclimate-simulations/simulation-test/simresults_e.csv")
