@@ -327,5 +327,41 @@ microclimate_indices <- function(macroclimate, microclimate, time.index){
 }
 
 
+### calculate only selected indices
+
+best_microclimate_indices <- function(macroclimate, microclimate, time.index){
+  
+  #calculate indices
+  # the As
+  mn_offset <- mean_offset(macroclimate = macroclimate, microclimate = microclimate)
+  md_offset <- median_offset(macroclimate = macroclimate, microclimate = microclimate)
+  
+  # the Vs
+  amplitude_offset.95 <- amplitude_offset(macroclimate = macroclimate, microclimate = microclimate, percentile_max = .95, percentile_min = .05)
+  change_ratio <- change_ratio(macroclimate = macroclimate, microclimate = microclimate)
+  
+  #the Es
+  ## Emax
+  max_offset.975 <- offset_of_maxima(macroclimate = macroclimate, microclimate = microclimate, percentile = .975)
+  ## Emin
+  min_offset.025 <- offset_of_minima(macroclimate = macroclimate, microclimate = microclimate, percentile = .025)
+  
+  #return named vector
+  indices <- c(# the As
+    "mean offset" = mn_offset,
+    "median offset" = md_offset,
+    # the Vs
+    "amplitude offset(p5-p95)" = amplitude_offset.95,
+    "change ratio" = change_ratio,
+    # the Es
+    ## Emax
+    "offset of maxima (p97.5)" = max_offset.975,
+    ## Emin
+    "offset of minima (p2.5)" = min_offset.025
+  )
+  
+  return(indices) 
+}
+
 
 
