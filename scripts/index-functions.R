@@ -136,26 +136,7 @@ slope <- function(macroclimate, microclimate){
   return(slope)
 }
 
-#sensitivity: ratio of change between two time points in microclimate to change in macroclimate
-sensitivity <- function(macroclimate, microclimate){
-  
-  ratios <- numeric(length(macroclimate) - 1)
-  for (i in 2:(length(macroclimate) - 1)) {
-    diff_macro <- macroclimate[i] - macroclimate[i - 1]
-    diff_micro <- microclimate[i] - microclimate[i - 1]
-    
-    if (is.na(diff_macro)==TRUE){
-      ratios[i - 1] <- NA
-    } else if(diff_macro == 0) {
-      ratios[i - 1] <- NA  # handle division by zero
-    } else {
-      ratios[i - 1] <- diff_micro / diff_macro
-    }
-  }
-  return(mean(ratios, na.rm=TRUE))
-}
-
-# further adapted version
+# ratio of change between two time points in microclimate to change in macroclimate
 change_ratio <- function(macroclimate, microclimate){
   
   macro = macroclimate[!is.na(macroclimate)]
@@ -283,7 +264,6 @@ microclimate_indices <- function(macroclimate, microclimate, time.index){
   cv_offset_daily <- CV_offset_mean_daily(time.index = time.index, macroclimate = macroclimate, microclimate = microclimate)
   cv_r <- CV_ratio(macroclimate = macroclimate, microclimate = microclimate)
   slope <- slope(macroclimate = macroclimate, microclimate = microclimate)
-  sensitivity <- sensitivity(macroclimate = macroclimate, microclimate = microclimate)
   change_ratio <- change_ratio(macroclimate = macroclimate, microclimate = microclimate)
   corr <- cor(macroclimate, microclimate, use="complete.obs")
   
@@ -323,7 +303,6 @@ microclimate_indices <- function(macroclimate, microclimate, time.index){
                "CV_offset_mean_daily" = cv_offset_daily,
                "CV_ratio" = cv_r,
                "slope" = slope,
-               "sensitivity" = sensitivity,
                "change_ratio" = change_ratio,
                "correlation_micro_macro" = corr,
                # the Es
