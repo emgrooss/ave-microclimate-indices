@@ -1,4 +1,4 @@
-# Create linear models and plots for simulation test
+# Create linear models and plots to test the simulation
 
 rm(list=ls())
 

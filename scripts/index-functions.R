@@ -2,7 +2,7 @@ library(lubridate)
 library(dplyr)
 
 
-### AVERAGE INDICES ###
+#---AVERAGE INDICES-----------------------------------------------------------------
 
 # mean offset
 mean_offset <- function(macroclimate, microclimate){
@@ -24,7 +24,7 @@ sum_of_offsets <- function(macroclimate, microclimate){
   return(sum(offset, na.rm=TRUE))
 }
 
-#equilibrium (Gril et al. 2023)
+#equilibrium (following Gril et al. 2023)
 equilibrium <- function(macroclimate, microclimate){
   mod = lm(microclimate ~ macroclimate, na.action=na.omit) #create linear model
   cf = coef(mod) # get coefficients
@@ -36,7 +36,7 @@ equilibrium <- function(macroclimate, microclimate){
 }
 
 
-### VARIABILITY INDICES ###
+#---VARIABILITY INDICES---------------------------------------------------------------
 
 # offset of SD
 sd_offset <- function(macroclimate, microclimate){
@@ -127,7 +127,7 @@ CV_ratio <- function(macroclimate, microclimate){
   return(cv_micro/cv_macro)
 }
 
-# slope (Gril et al. 2023)
+# slope (following Gril et al. 2023)
 slope <- function(macroclimate, microclimate){
   mod = lm(microclimate ~ macroclimate, na.action=na.omit) #create linear model
   cf = coef(mod) # get coefficients
@@ -149,11 +149,12 @@ change_ratio <- function(macroclimate, microclimate){
   else {
     ratios <- numeric(length(macroclimate) - 1)
     for (i in 2:(length(macroclimate) - 1)) {
+      # round to 2 decimals to prevent extremely high ratios if divided by numbers close to 0
       diff_macro <- round(macroclimate[i],2) - round(macroclimate[i - 1],2)
       diff_micro <- round(microclimate[i],2) - round(microclimate[i - 1],2)
       
-      if (is.na(diff_macro)==TRUE){
-        ratios[i - 1] <- NA
+      if (is.na(diff_macro)==TRUE){ 
+        ratios[i - 1] <- NA # handle NAs
       } else if(diff_macro == 0) {
         ratios[i - 1] <- NA  # handle division by zero
       } else {
@@ -165,9 +166,9 @@ change_ratio <- function(macroclimate, microclimate){
 }
 
 
-### EXTREME INDICES ###
+#---EXTREME INDICES-----------------------------------------------------------------------------------
 
-#### Maxima ####
+# Maxima
 
 # offset of maxima
 offset_of_maxima <- function(macroclimate, microclimate, percentile = .95){
@@ -203,7 +204,7 @@ p95_daily_maxima_offset <- function(time.index, macroclimate, microclimate){
 }
 
 
-#### Minima ####
+# Minima
 
 # offset of minima
 
@@ -347,16 +348,12 @@ best_microclimate_indices <- function(macroclimate, microclimate, time.index){
   min_offset.025 <- offset_of_minima(macroclimate = macroclimate, microclimate = microclimate, percentile = .025)
   
   #return named vector
-  indices <- c(# the As
+  indices <- c(
     "mean offset" = mn_offset,
     "median offset" = md_offset,
-    # the Vs
     "amplitude offset(p5-p95)" = amplitude_offset.95,
     "change ratio" = change_ratio,
-    # the Es
-    ## Emax
     "offset of maxima (p97.5)" = max_offset.975,
-    ## Emin
     "offset of minima (p2.5)" = min_offset.025
   )
   
