@@ -2,21 +2,27 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="209.91812mm"
    height="380.99515mm"
    viewBox="0 0 209.91812 380.99514"
    version="1.1"
    id="svg1"
    xml:space="preserve"
-   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
    sodipodi:docname="Fig1-climateindices.svg"
    inkscape:export-filename="Fig1-climateindices.png"
    inkscape:export-xdpi="300"
-   inkscape:export-ydpi="300"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+   inkscape:export-ydpi="300"><metadata
+     id="metadata328"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><sodipodi:namedview
      id="namedview1"
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -28,14 +34,14 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.62933508"
-     inkscape:cx="131.88523"
-     inkscape:cy="574.41578"
-     inkscape:window-width="1728"
-     inkscape:window-height="964"
+     inkscape:cx="-255.82556"
+     inkscape:cy="1012.202"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
      inkscape:window-x="0"
-     inkscape:window-y="38"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="layer5"
+     inkscape:window-y="453"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer6"
      inkscape:export-bgcolor="#ffffffff"><inkscape:grid
        id="grid3"
        units="px"
@@ -399,7 +405,8 @@
          id="tspan4"
          style="font-weight:bold;font-size:5.29167px;stroke-width:0.264583"
          x="-60.430935"
-         y="138.78481">Temperature</tspan></text><text
+         y="138.78481">Temperature</tspan></text>
+<text
        xml:space="preserve"
        style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
        x="166.20741"
@@ -409,7 +416,8 @@
          id="tspan4-9"
          style="font-weight:bold;font-size:5.29167px;stroke-width:0.264583"
          x="166.20741"
-         y="66.784721">Time</tspan></text><path
+         y="66.784721">Time</tspan></text>
+<path
        style="fill:none;stroke:#000000;stroke-width:0.665;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
        d="m 142.87499,49.741667 c 9.56275,10.583332 7.61788,-22.489585 13.22917,-22.489585 7.9375,0 10.49511,27.781251 14.55208,27.781251 6.61459,0 3.96875,-37.041668 13.22917,-37.041668 7.22935,0 5.29167,47.625002 15.96802,25.206774"
        id="path5"
@@ -434,7 +442,8 @@
            id="tspan4-4"
            style="font-weight:bold;font-size:5.29167px;stroke-width:0.264583"
            x="-132.31552"
-           y="54.118149">Temperature</tspan></text><text
+           y="54.118149">Temperature</tspan></text>
+<text
          xml:space="preserve"
          style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
          x="81.540756"
@@ -444,7 +453,8 @@
            id="tspan4-9-7"
            style="font-weight:bold;font-size:5.29167px;stroke-width:0.264583"
            x="81.540756"
-           y="138.66931">Time</tspan></text><path
+           y="138.66931">Time</tspan></text>
+<path
          style="fill:none;stroke:#000000;stroke-width:0.702694;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
          d="m 58.208333,121.62625 c 9.56275,10.58333 7.61788,-22.489583 13.22917,-22.489583 7.9375,0 10.49511,27.781253 14.55208,27.781253 6.61459,0 3.96875,-37.04167 13.22917,-37.04167 7.229347,0 5.291667,47.625 15.968017,25.20677"
          id="path5-5"
@@ -464,7 +474,8 @@
            id="tspan4-0"
            style="font-weight:bold;font-size:5.29167px;stroke-width:0.264583"
            x="-132.31552"
-           y="128.20148">Temperature</tspan></text><text
+           y="128.20148">Temperature</tspan></text>
+<text
          xml:space="preserve"
          style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
          x="155.62408"
@@ -474,7 +485,8 @@
            id="tspan4-9-2"
            style="font-weight:bold;font-size:5.29167px;stroke-width:0.264583"
            x="155.62408"
-           y="138.66931">Time</tspan></text><path
+           y="138.66931">Time</tspan></text>
+<path
          style="fill:none;stroke:#000000;stroke-width:0.702694;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
          d="m 132.29167,121.62625 c 9.56275,10.58333 7.61788,-22.489583 13.22917,-22.489583 7.9375,0 10.49511,27.781253 14.55208,27.781253 6.61459,0 3.96875,-37.04167 13.22917,-37.04167 7.22935,0 5.29167,47.625 15.96802,25.20677"
          id="path5-4"
@@ -494,7 +506,8 @@
            id="tspan4-3"
            style="font-weight:bold;font-size:5.29167px;stroke-width:0.264583"
            x="-193.16969"
-           y="38.243141">Temperature</tspan></text><text
+           y="38.243141">Temperature</tspan></text>
+<text
          xml:space="preserve"
          style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
          x="65.665756"
@@ -504,7 +517,8 @@
            id="tspan4-9-77"
            style="font-weight:bold;font-size:5.29167px;stroke-width:0.264583"
            x="65.665756"
-           y="199.52347">Time</tspan></text><path
+           y="199.52347">Time</tspan></text>
+<path
          style="fill:none;stroke:#000000;stroke-width:0.702694;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
          d="m 42.33333,179.50092 c 9.56275,10.58333 7.61788,-22.48959 13.22917,-22.48959 7.9375,0 10.49511,27.78125 14.55208,27.78125 6.61459,0 3.96875,-37.04166 13.22917,-37.04166 7.22935,0 5.29167,47.625 15.96802,25.20677"
          id="path5-3"
@@ -531,7 +545,8 @@
          id="tspan7"
          style="font-weight:bold;fill:#3479c3;fill-opacity:1;stroke:#4e84df;stroke-width:0.264583;stroke-opacity:1"
          x="46.645405"
-         y="127.72599">a</tspan></text><path
+         y="127.72599">a</tspan></text>
+<path
        style="fill:none;stroke:#4c81da;stroke-width:0.665;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:0.988235;marker-end:url(#Triangle)"
        d="m 47.62499,129.11675 v 5.82083"
        id="path8"
@@ -545,7 +560,8 @@
          id="tspan8"
          style="font-weight:bold;fill:#cb9b2b;fill-opacity:1;stroke:#ca9a2a;stroke-width:0.264583;stroke-opacity:0.988235"
          x="115.4437"
-         y="130.4158">v</tspan></text><path
+         y="130.4158">v</tspan></text>
+<path
        style="fill:none;stroke:#bf902f;stroke-width:0.665;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
        d="m 116.59006,123.04057 v 2.75517"
        id="path9"
@@ -571,7 +587,8 @@
          id="tspan11"
          style="font-weight:normal;fill:#c14c4c;fill-opacity:1;stroke:#df4e4e;stroke-width:0.264583;stroke-opacity:1"
          x="185.85622"
-         y="133.30693">e</tspan></text><path
+         y="133.30693">e</tspan></text>
+<path
        style="fill:none;stroke:#c83e3e;stroke-width:0.665;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Triangle)"
        d="m 186.91212,141.49196 v -6.56298"
        id="path12"
@@ -593,7 +610,8 @@
          id="tspan16"
          x="82.377739"
          y="200.74168"
-         style="font-weight:bold;font-size:5.29167px;fill:#3e72c7;fill-opacity:1;stroke-width:0.264583">Modulation of microclimate average (A)</tspan></text><text
+         style="font-weight:bold;font-size:5.29167px;fill:#3e72c7;fill-opacity:1;stroke-width:0.264583">Modulation of microclimate average (A)</tspan></text>
+<text
        xml:space="preserve"
        style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
        x="39.62281"
@@ -608,7 +626,8 @@
          x="39.62281"
          y="106.61239"
          style="font-weight:bold;font-size:5.29167px;text-align:center;text-anchor:middle;fill:#3e72c7;fill-opacity:1;stroke-width:0.264583"
-         id="tspan2">the average (a)</tspan></text><text
+         id="tspan2">the average (a)</tspan></text>
+<text
        xml:space="preserve"
        style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
        x="109.47287"
@@ -623,11 +642,13 @@
          x="109.47287"
          y="106.61239"
          style="font-weight:bold;font-size:5.29167px;text-align:center;text-anchor:middle;fill:#c79c3e;fill-opacity:1;stroke-width:0.264583"
-         id="tspan5">the variance (v)</tspan></text><text
+         id="tspan5">the variance (v)</tspan></text>
+<text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,0.499805,0.499805)"
        id="text6"
-       style="font-size:26.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;white-space:pre;shape-inside:url(#rect6);display:inline" /><text
+       style="font-size:26.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;white-space:pre;shape-inside:url(#rect6);display:inline" />
+<text
        xml:space="preserve"
        style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
        x="178.79301"
@@ -642,7 +663,8 @@
          x="178.79301"
          y="106.61239"
          style="font-weight:bold;font-size:5.29167px;text-align:center;text-anchor:middle;fill:#cb504a;fill-opacity:1;stroke-width:0.264583"
-         id="tspan10">the extremes (e)</tspan></text><text
+         id="tspan10">the extremes (e)</tspan></text>
+<text
        xml:space="preserve"
        style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
        x="113.06944"
@@ -652,7 +674,8 @@
          id="tspan12"
          x="113.06944"
          y="189.62933"
-         style="font-weight:bold;font-size:5.29167px;fill:#000000;fill-opacity:1;stroke-width:0.264583">Indices identifying:</tspan></text></g><g
+         style="font-weight:bold;font-size:5.29167px;fill:#000000;fill-opacity:1;stroke-width:0.264583">Indices identifying:</tspan></text>
+</g><g
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Indices"
@@ -681,7 +704,8 @@
            id="tspan18"
            x="82.377739"
            y="211.12006"
-           style="font-weight:bold;font-size:5.29167px;fill:#daa735;fill-opacity:1;stroke-width:0.264583">Modulation of microclimate variance (V)</tspan></text></g><g
+           style="font-weight:bold;font-size:5.29167px;fill:#daa735;fill-opacity:1;stroke-width:0.264583">Modulation of microclimate variance (V)</tspan></text>
+</g><g
        id="g21"
        transform="translate(-0.021309,4.2333335)"><path
          style="fill:#df4e4e;fill-opacity:0.976471;stroke-width:1.54126"
@@ -697,7 +721,8 @@
            id="tspan19"
            x="82.377739"
            y="225.97363"
-           style="font-weight:bold;font-size:5.29167px;fill:#cb5050;fill-opacity:1;stroke-width:0.264583">Modulation of microclimate extreme (E)</tspan></text></g><path
+           style="font-weight:bold;font-size:5.29167px;fill:#cb5050;fill-opacity:1;stroke-width:0.264583">Modulation of microclimate extreme (E)</tspan></text>
+</g><path
        style="fill:none;stroke:#000000;stroke-width:0.792;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ConcaveTriangle-1-2)"
        d="m 198.70154,155.70271 c 2.02615,2.6584 3.62947,5.81571 3.91774,7.80145 1.04948,7.22907 -5.96499,15.15367 -6.3604,8.83141 -0.70036,-11.19804 10.66716,-0.11097 6.47012,8.23639"
        id="path3-3-1"
@@ -724,7 +749,8 @@
            style="font-weight:bold;font-size:4.93889px;text-align:center;text-anchor:middle;stroke-width:0.264583"
            x="115.86905"
            y="366.77075"
-           id="tspan24">(e.g. average)</tspan></text><text
+           id="tspan24">(e.g. average)</tspan></text>
+<text
          xml:space="preserve"
          style="font-size:4.93889px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
          x="-304.1156"
@@ -735,7 +761,8 @@
            style="font-weight:bold;font-size:4.93889px;text-align:center;text-anchor:middle;stroke-width:0.264583"
            x="-304.1156"
            y="62.649208"
-           id="tspan24-9">Index value</tspan></text></g><path
+           id="tspan24-9">Index value</tspan></text>
+</g><path
        style="fill:#2d429d;fill-opacity:1;stroke:#3e32bd;stroke-width:0.765;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="m 60.717727,357.51781 91.733503,-92.0591"
        id="path25"
@@ -2730,7 +2757,8 @@
          id="tspan28"
          style="stroke-width:0.264583"
          x="151.1853"
-         y="277.01682">X</tspan></text><text
+         y="277.01682">X</tspan></text>
+<text
        xml:space="preserve"
        style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
        x="157.36174"
@@ -2740,7 +2768,8 @@
          id="tspan29"
          style="font-weight:bold;stroke-width:0.264583"
          x="157.36174"
-         y="277.10159">No site effect</tspan></text><text
+         y="277.10159">No site effect</tspan></text>
+<text
        xml:space="preserve"
        style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
        x="66.767494"
@@ -2750,7 +2779,8 @@
          id="tspan29-4"
          style="font-weight:bold;stroke-width:0.264583"
          x="66.767494"
-         y="280.73495">Linear relationship</tspan></text><text
+         y="280.73495">Linear relationship</tspan></text>
+<text
        xml:space="preserve"
        style="font-size:5.29167px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
        x="165.04495"
@@ -2775,7 +2805,8 @@
          style="font-weight:bold;text-align:center;text-anchor:middle;stroke-width:0.264583"
          x="165.04495"
          y="338.05496"
-         id="tspan33">(e.g. average)</tspan></text><path
+         id="tspan33">(e.g. average)</tspan></text>
+<path
        style="fill:none;stroke:#000000;stroke-width:0.565;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
        d="m 95.048294,285.09321 c 0.841228,7.36806 1.153296,15.85351 8.625236,22.47664"
        id="path29"
@@ -2788,15 +2819,16 @@
      id="layer6"
      inkscape:label="Labels"><text
        xml:space="preserve"
-       style="font-size:7.05556px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
+       style="font-size:7.05556011px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.26458299"
        x="6.238585"
        y="11.450044"
        id="text34"><tspan
          sodipodi:role="line"
          id="tspan34"
-         style="font-weight:bold;stroke-width:0.264583"
+         style="font-weight:bold;stroke-width:0.26458299"
          x="6.238585"
-         y="11.450044">A. Macroclimate time series sampling</tspan></text><text
+         y="11.450044">A. Macroclimate data</tspan></text>
+<text
        xml:space="preserve"
        style="font-size:7.05556px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
        x="5.6391382"
@@ -2806,7 +2838,8 @@
          id="tspan34-1"
          style="font-weight:bold;stroke-width:0.264583"
          x="5.6391382"
-         y="89.762627">B. Microclimate simulations</tspan></text><text
+         y="89.762627">B. Microclimate simulations</tspan></text>
+<text
        xml:space="preserve"
        style="font-size:7.05556px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
        x="5.9319715"
@@ -2816,14 +2849,16 @@
          id="tspan34-1-3"
          style="font-weight:bold;stroke-width:0.264583"
          x="5.9319715"
-         y="174.4294">C. Microclimate modulation indices calculation</tspan></text><text
+         y="174.4294">C. Microclimate modulation indices calculation</tspan></text>
+<text
        xml:space="preserve"
-       style="font-size:7.05556px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
+       style="font-size:7.05556011px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.26458299"
        x="5.6391382"
        y="250.84117"
        id="text34-9-5-0"><tspan
          sodipodi:role="line"
          id="tspan34-1-3-2"
-         style="font-weight:bold;stroke-width:0.264583"
+         style="font-weight:bold;stroke-width:0.26458299"
          x="5.6391382"
-         y="250.84117">D. Indices quality</tspan></text></g></svg>
+         y="250.84117">D. Index quality</tspan></text>
+</g></svg>

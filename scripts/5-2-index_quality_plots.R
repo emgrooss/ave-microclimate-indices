@@ -186,7 +186,7 @@ a_plot <- ggplot(index_var_a, aes(x = "", y = var_part, fill = aspect)) +
   ) +
   labs(title = "(a) Indices targeting average\n")
 
-ggsave("plots/varpie_a.jpg", a_plot, width = 2000, height = 650, unit = "px")
+ggsave("plots/varpie_a.jpg", a_plot, width = 4000, height = 1300, unit = "px", dpi=600)
 
 
 # variability modulation indices plot
@@ -212,7 +212,7 @@ v_plot <- ggplot(index_var_v, aes(x = "", y = var_part, fill = aspect)) +
   labs(title = "(b) Indices targeting variability\n") +
   theme(legend.position = "none")
 
-ggsave("plots/varpie_v.jpg", v_plot, width = 2000, height = 1700, unit = "px")
+ggsave("plots/varpie_v.jpg", v_plot, width = 4000, height = 3400, unit = "px", dpi = 600)
 
 
 # extreme modulation indices plot
@@ -238,7 +238,7 @@ e_plot <- ggplot(index_var_e, aes(x = "", y = var_part, fill = aspect)) +
   labs(title = "(c) Indices targeting extremes\n") +
   theme(legend.position = "none")
 
-ggsave("plots/varpie_e.jpg", e_plot, width = 2000, height = 1100, unit = "px")
+ggsave("plots/varpie_e.jpg", e_plot, width = 4000, height = 2200, unit = "px", dpi = 600)
 
 
 
@@ -428,9 +428,7 @@ combined_var_plots <- grid.arrange(uniquevar_a, uniquevar_v, uniquevar_e, legend
 
 # save plot (as svg and jpg)
 ggsave("plots/best_indices.svg", combined_var_plots,
-  width = 2200, height = 1800, units = "px"
-)
+  width = 4400, height = 3600, unit = "px", dpi = 600)
 
 ggsave("plots/best_indices.jpg", combined_var_plots,
-  width = 2200, height = 1800, unit = "px"
-)
+  width = 4400, height = 3600, unit = "px", dpi = 600)

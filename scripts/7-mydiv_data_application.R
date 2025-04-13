@@ -230,4 +230,4 @@ exts <- grid.arrange(max, min,
 
 all_plots <- grid.arrange(avgs, vars, exts, ncol = 1)
 
-ggsave("plots/mydiv_indices.jpg", all_plots, width = 2000, height = 2800, unit = "px")
+ggsave("plots/mydiv_indices.jpg", all_plots, width = 18, height = 23, unit = "cm", dpi = 600)
