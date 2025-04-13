@@ -1,4 +1,14 @@
-## Test the simulation by calculating its outputs
+# ===============================================================================================================================
+# Title       : 3-1-simulation_test_data.R
+# Description : Test the functionality of the microclimate simulation
+# Author      : ###
+# Affiliation : ###
+# Contact     : ###
+# Date        : 2025-04-13
+# Version     : 1.0
+# License     : MIT
+# Notes       : Supplementary code for "A framework to quantify microclimate modulation using average, variability, and extremes"
+# ===============================================================================================================================
 
 rm(list = ls())
 

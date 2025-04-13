@@ -1,4 +1,14 @@
-# Calculate microclimate indices for real climate data (MyDiv)
+# ===============================================================================================================================
+# Title       : 7-mydiv_data_application.R
+# Description : Calculate microclimate indices for real climate data from the field experiment MyDiv
+# Author      : ###
+# Affiliation : ###
+# Contact     : ###
+# Date        : 2025-04-13
+# Version     : 1.0
+# License     : MIT
+# Notes       : Supplementary code for "A framework to quantify microclimate modulation using average, variability, and extremes"
+# ===============================================================================================================================
 
 rm(list = ls())
 

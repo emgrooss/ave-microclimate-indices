@@ -1,3 +1,15 @@
+# ===============================================================================================================================
+# Title       : 5-1-index_quality.R
+# Description : Calculate index quality metrics for indices from microclimate simulations
+# Author      : ###
+# Affiliation : ###
+# Contact     : ###
+# Date        : 2025-04-13
+# Version     : 1.0
+# License     : MIT
+# Notes       : Supplementary code for "A framework to quantify microclimate modulation using average, variability, and extremes"
+# ===============================================================================================================================
+
 rm(list = ls())
 
 library(lmerTest)

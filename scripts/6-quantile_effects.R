@@ -1,4 +1,14 @@
-# Calculate & plot index quality for quantile-dependent indices at different quantile levels
+# ===============================================================================================================================
+# Title       : 6-quantile_effects.R
+# Description : Calculate & plot index quality for quantile-dependent indices at different quantile levels
+# Author      : ###
+# Affiliation : ###
+# Contact     : ###
+# Date        : 2025-04-13
+# Version     : 1.0
+# License     : MIT
+# Notes       : Supplementary code for "A framework to quantify microclimate modulation using average, variability, and extremes"
+# ===============================================================================================================================
 
 rm(list = ls())
 

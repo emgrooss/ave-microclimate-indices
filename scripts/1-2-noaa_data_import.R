@@ -1,4 +1,14 @@
-## Downloading data for the selected sample sites from NOAA
+# ===============================================================================================================================
+# Title       : 1-2-noaa_data_import.R
+# Description : Downloading data for the selected sample sites from NOAAs
+# Author      : ###
+# Affiliation : ###
+# Contact     : ###
+# Date        : 2025-04-13
+# Version     : 1.0
+# License     : MIT
+# Notes       : Supplementary code for "A framework to quantify microclimate modulation using average, variability, and extremes"
+# ===============================================================================================================================
 
 rm(list = ls())
 library(climate)

@@ -1,5 +1,14 @@
-## Data download from NOAA
-## selection of sites with hourly temperature data in 2020
+# ===============================================================================================================================
+# Title       : 1-1-noaa_site_sample.R
+# Description : Selection and sampling of suitable NOAA sites
+# Author      : ###
+# Affiliation : ###
+# Contact     : ###
+# Date        : 2025-04-13
+# Version     : 1.0
+# License     : MIT
+# Notes       : Supplementary code for "A framework to quantify microclimate modulation using average, variability, and extremes"
+# ===============================================================================================================================
 
 rm(list = ls())
 
@@ -10,6 +19,8 @@ library(rnaturalearth)
 library(rnaturalearthdata)
 library(climate)
 library(R.utils)
+
+#--selection of sites with hourly temperature data in 2020---------------------------------
 
 # read file downloaded from NOAA website that contains history of stations
 df <- read_delim("data/1-noaa/isd-history.csv",
@@ -97,7 +108,8 @@ noaa_map
 
 write_csv(sites, "data/1-noaa/2020-available-noaa.csv")
 
-# random sample of 1 per country
+#--random sample of 1 per country------------------------------------------------------------
+
 sites <- read_csv("data/1-noaa/2020-available-noaa.csv")
 sample_by_country <- sites %>%
   group_by(CTRY) %>%

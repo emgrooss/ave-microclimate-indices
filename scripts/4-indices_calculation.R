@@ -1,3 +1,15 @@
+# ===============================================================================================================================
+# Title       : 4-indices_calculation.R
+# Description : Calculate microclimate indices for all simulated microclimates
+# Author      : ###
+# Affiliation : ###
+# Contact     : ###
+# Date        : 2025-04-13
+# Version     : 1.0
+# License     : MIT
+# Notes       : Supplementary code for "A framework to quantify microclimate modulation using average, variability, and extremes"
+# ===============================================================================================================================
+
 rm(list = ls())
 
 library(tidyverse)
