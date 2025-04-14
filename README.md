@@ -17,3 +17,6 @@ In this study, we compiled and tested methods to quantify microclimate modulatio
 - **3-indices** contains the indices calculated for the simulated microclimates
 - **4-index-performance** contains the quality metrics calculated for the indices
 - **5-example-data** contains the data for the example application (MyDiv)
+
+### /plots folder:
+contains figures created in the code as well as additional figures from the paper
