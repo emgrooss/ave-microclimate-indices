@@ -13,9 +13,6 @@
 library(lubridate)
 library(dplyr)
 
-
-#---AVERAGE INDICES-----------------------------------------------------------------
-
 # mean offset
 mean_offset <- function(macroclimate, microclimate) {
   offset <- microclimate - macroclimate
@@ -29,26 +26,6 @@ median_offset <- function(macroclimate, microclimate) {
   median_offset <- median(offset, na.rm = TRUE)
   return(median_offset)
 }
-
-# sum of offsets
-sum_of_offsets <- function(macroclimate, microclimate) {
-  offset <- microclimate - macroclimate
-  return(sum(offset, na.rm = TRUE))
-}
-
-# equilibrium (following Gril et al. 2023)
-equilibrium <- function(macroclimate, microclimate) {
-  mod <- lm(microclimate ~ macroclimate, na.action = na.omit) # create linear model
-  cf <- coef(mod) # get coefficients
-  intercept <- unname(cf[1])
-  slope <- unname(cf[2])
-
-  equilibrium <- intercept / (1 - slope)
-  return(equilibrium)
-}
-
-
-#---VARIABILITY INDICES---------------------------------------------------------------
 
 # offset of SD
 sd_offset <- function(macroclimate, microclimate) {
@@ -103,19 +80,6 @@ amplitude_offset_mean_daily <- function(time.index, macroclimate, microclimate) 
   return(mean(df$amplitude_offset, na.rm = TRUE))
 }
 
-# amplitude ratio
-amplitude_ratio <- function(macroclimate, microclimate, percentile_min = .05, percentile_max = .95) {
-  macro_max <- quantile(macroclimate, percentile_max, na.rm = TRUE)
-  micro_max <- quantile(microclimate, percentile_max, na.rm = TRUE)
-  macro_min <- quantile(macroclimate, percentile_min, na.rm = TRUE)
-  micro_min <- quantile(microclimate, percentile_min, na.rm = TRUE)
-
-  amplitude_macro <- macro_max - macro_min
-  amplitude_micro <- micro_max - micro_min
-
-  return(unname(amplitude_micro / amplitude_macro))
-}
-
 # CV offset
 CV_offset <- function(macroclimate, microclimate) {
   cv_macro <- mean(macroclimate, na.rm = TRUE) / sd(macroclimate, na.rm = TRUE)
@@ -123,70 +87,6 @@ CV_offset <- function(macroclimate, microclimate) {
 
   return(cv_micro - cv_macro)
 }
-
-# CV offset mean daily
-CV_offset_mean_daily <- function(time.index, macroclimate, microclimate) {
-  df <- data.frame(time.index = time.index, macroclimate = macroclimate, microclimate = microclimate)
-
-  df <- df %>%
-    dplyr::group_by(day = lubridate::yday(time.index)) %>%
-    dplyr::summarize(
-      mean_macro = mean(macroclimate, na.rm = TRUE), sd_macro = sd(macroclimate, na.rm = TRUE),
-      mean_micro = mean(microclimate, na.rm = TRUE), sd_micro = sd(microclimate, na.rm = TRUE)
-    )
-
-  df$cv_macro <- df$mean_macro / df$sd_macro
-  df$cv_micro <- df$mean_micro / df$sd_micro
-  return(mean(df$cv_micro - df$cv_macro, na.rm = TRUE))
-}
-
-# CV ratio
-CV_ratio <- function(macroclimate, microclimate) {
-  cv_macro <- mean(macroclimate, na.rm = TRUE) / sd(macroclimate, na.rm = TRUE)
-  cv_micro <- mean(microclimate, na.rm = TRUE) / sd(microclimate, na.rm = TRUE)
-
-  return(cv_micro / cv_macro)
-}
-
-# slope (following Gril et al. 2023)
-slope <- function(macroclimate, microclimate) {
-  mod <- lm(microclimate ~ macroclimate, na.action = na.omit) # create linear model
-  cf <- coef(mod) # get coefficients
-  slope <- unname(cf[2])
-
-  return(slope)
-}
-
-# ratio of change between two time points in microclimate to change in macroclimate
-change_ratio <- function(macroclimate, microclimate) {
-  macro <- macroclimate[!is.na(macroclimate)]
-  micro <- microclimate[!is.na(microclimate)]
-
-  if (length(macro) != length(micro)) {
-    print("Error: Macroclimate and microclimate do not contain the same number of observations. Please correct.")
-  } else {
-    ratios <- numeric(length(macroclimate) - 1)
-    for (i in 2:(length(macroclimate) - 1)) {
-      # round to 2 decimals to prevent extremely high ratios if divided by numbers close to 0
-      diff_macro <- round(macroclimate[i], 2) - round(macroclimate[i - 1], 2)
-      diff_micro <- round(microclimate[i], 2) - round(microclimate[i - 1], 2)
-
-      if (is.na(diff_macro) == TRUE) {
-        ratios[i - 1] <- NA # handle NAs
-      } else if (diff_macro == 0) {
-        ratios[i - 1] <- NA # handle division by zero
-      } else {
-        ratios[i - 1] <- diff_micro / diff_macro
-      }
-    }
-    return(median(ratios, na.rm = TRUE))
-  }
-}
-
-
-#---EXTREME INDICES-----------------------------------------------------------------------------------
-
-# Maxima
 
 # offset of maxima
 offset_of_maxima <- function(macroclimate, microclimate, percentile = .95) {
@@ -226,9 +126,6 @@ p95_daily_maxima_offset <- function(time.index, macroclimate, microclimate) {
   max_offset_p95 <- unname(quantile(df$daily_max_offset, 0.95, na.rm = TRUE))
   return(max_offset_p95)
 }
-
-
-# Minima
 
 # offset of minima
 
@@ -271,6 +168,28 @@ p5_daily_minima_offset <- function(time.index, macroclimate, microclimate) {
 }
 
 
+# slope (following Gril et al. 2023)
+slope <- function(macroclimate, microclimate) {
+  mod <- lm(microclimate ~ macroclimate, na.action = na.omit) # create linear model
+  cf <- coef(mod) # get coefficients
+  slope <- unname(cf[2])
+  
+  return(slope)
+}
+
+
+# equilibrium (following Gril et al. 2023)
+equilibrium <- function(macroclimate, microclimate) {
+  mod <- lm(microclimate ~ macroclimate, na.action = na.omit) # create linear model
+  cf <- coef(mod) # get coefficients
+  intercept <- unname(cf[1])
+  slope <- unname(cf[2])
+  
+  equilibrium <- intercept / (1 - slope)
+  return(equilibrium)
+}
+
+
 
 ### calculate all indices together ###
 
@@ -279,7 +198,6 @@ microclimate_indices <- function(macroclimate, microclimate, time.index) {
   # the As
   mn_offset <- mean_offset(macroclimate = macroclimate, microclimate = microclimate)
   md_offset <- median_offset(macroclimate = macroclimate, microclimate = microclimate)
-  total_mod <- sum_of_offsets(macroclimate = macroclimate, microclimate = microclimate)
   equilibrium <- equilibrium(macroclimate = macroclimate, microclimate = microclimate)
 
   # the Vs
@@ -288,14 +206,8 @@ microclimate_indices <- function(macroclimate, microclimate, time.index) {
   amplitude_offset.95 <- amplitude_offset(macroclimate = macroclimate, microclimate = microclimate, percentile_max = .95, percentile_min = .05)
   amplitude_offset.975 <- amplitude_offset(macroclimate = macroclimate, microclimate = microclimate, percentile_max = .975, percentile_min = .025)
   daily_amp <- amplitude_offset_mean_daily(time.index = time.index, macroclimate = macroclimate, microclimate = microclimate)
-  amplitude_r.95 <- amplitude_ratio(macroclimate = macroclimate, microclimate = microclimate, percentile_max = .95, percentile_min = .05)
-  amplitude_r.975 <- amplitude_ratio(macroclimate = macroclimate, microclimate = microclimate, percentile_max = .975, percentile_min = .25)
   cv_offset <- CV_offset(macroclimate = macroclimate, microclimate = microclimate)
-  cv_offset_daily <- CV_offset_mean_daily(time.index = time.index, macroclimate = macroclimate, microclimate = microclimate)
-  cv_r <- CV_ratio(macroclimate = macroclimate, microclimate = microclimate)
   slope <- slope(macroclimate = macroclimate, microclimate = microclimate)
-  change_ratio <- change_ratio(macroclimate = macroclimate, microclimate = microclimate)
-  corr <- cor(macroclimate, microclimate, use = "complete.obs")
 
   # the Es
   ## Emax
@@ -319,7 +231,6 @@ microclimate_indices <- function(macroclimate, microclimate, time.index) {
   indices <- c( # the As
     "mean_offset" = mn_offset,
     "median_offset" = md_offset,
-    "sum_of_offsets" = total_mod,
     "equilibrium" = equilibrium,
     # the Vs
     "sd_offset" = sd_offset,
@@ -327,14 +238,8 @@ microclimate_indices <- function(macroclimate, microclimate, time.index) {
     "amplitude_offset.95" = amplitude_offset.95,
     "amplitude_offset.975" = amplitude_offset.975,
     "amplitude_offset_mean_daily" = daily_amp,
-    "amplitude_ratio.95" = amplitude_r.95,
-    "amplitude_ratio.975" = amplitude_r.975,
     "CV_offset" = cv_offset,
-    "CV_offset_mean_daily" = cv_offset_daily,
-    "CV_ratio" = cv_r,
     "slope" = slope,
-    "change_ratio" = change_ratio,
-    "correlation_micro_macro" = corr,
     # the Es
     ## Emax
     "offset_of_maxima.95" = max_offset.95,
