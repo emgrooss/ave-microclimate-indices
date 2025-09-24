@@ -4,10 +4,10 @@
 # Author      : ###
 # Affiliation : ###
 # Contact     : ###
-# Date        : 2025-04-13
+# Date        : 2025-09-24
 # Version     : 1.0
 # License     : MIT
-# Notes       : Supplementary code for "A framework to quantify microclimate modulation using average, variability, and extremes"
+# Notes       : Supplementary code for "Average, Variability, and Extremes: A framework to quantify microclimate temperature modulation"
 # ===============================================================================================================================
 
 rm(list = ls())
@@ -19,85 +19,6 @@ library(ggrepel)
 library(grid)
 library(gridExtra)
 library(svglite)
-
-
-#--Index correlation figure---------------------------------------------------------
-
-# read table of indices calculated for all micro/macroclimate combinations
-indices <- read.csv("data/3-indices/indices.csv")
-indices <- select(indices, -c(
-  "X", "site", "a", "v", "e",
-  # remove variations that weren't included
-  # (because there is no effect of extremes at 5th / 95th percentile)
-  "offset_of_maxima.95", "offset_of_maxima_mean_daily.95",
-  "offset_of_minima.05", "offset_of_minima_mean_daily.05"
-))
-# set names for figure
-index_names <- c(
-  "Mean offset",
-  "Median offset",
-  "Sum of offsets",
-  "Equilibrium",
-  "Offset of SDs",
-  "Mean daily offset of SDs",
-  "Amplitude offset (5%)",
-  "Amplitude offset (2.5%)",
-  "Mean daily amplitude offset",
-  "Amplitude ratio (5%)",
-  "Amplitude ratio (2.5%)",
-  "CV offset",
-  "Mean daily CV offset",
-  "CV ratio",
-  "Slope",
-  "Change ratio",
-  "Correlation",
-  "Offset of maxima (97.5%)",
-  "Offset of maxima (100%)",
-  "Mean daily offset of maxima (97.5%)",
-  "Mean daily offset of maxima (100%)",
-  "p95 of daily offset of maxima",
-  "Offset of minima (2.5%)",
-  "Offset of minima (0%)",
-  "Mean daily offset of minima (2.5%)",
-  "Mean daily offset of minima (0%)",
-  "p5 of daily offset of minima"
-)
-colnames(indices) <- index_names
-
-# create correlation table
-index_cor <- cor(indices)
-
-# create figure for all indices
-custom_palette <- colorRampPalette(c("grey50", "white", "grey50"))(100)
-tiff("plots/index_correlations_all.tiff",
-  height = 40, width = 40, units = "cm",
-  compression = "lzw", res = 300
-)
-corrplot(index_cor,
-  type = "lower", method = "color", addCoef.col = "black",
-  tl.col = "black", addgrid.col = "gray", tl.srt = 45, col = custom_palette
-)
-dev.off()
-
-# only final selection of indices
-indices_selected <- select(indices, c(
-  "Mean offset", "Median offset",
-  "Amplitude offset (5%)", "Change ratio",
-  "Offset of maxima (97.5%)", "Offset of minima (2.5%)"
-))
-# create correlation table
-index_cor_sel <- cor(indices_selected)
-
-# save figure
-# tiff("plots/index_correlations_selected.tiff", height = 17, width = 17, units="cm",
-#    compression = "lzw", res = 300)
-svg("plots/index_correlation_selected.svg")
-corrplot(index_cor_sel,
-  type = "lower", method = "color", addCoef.col = "black",
-  tl.col = "black", addgrid.col = "gray", tl.srt = 45, col = custom_palette
-)
-dev.off()
-
 
 
 #--Variance partition figure---------------------------------------------------------
@@ -112,7 +33,6 @@ index_names <- index_var$index
 a_index_names <- c(
   "Mean offset" = "mean_offset",
   "Median offset" = "median_offset",
-  "Sum of offsets" = "sum_of_offsets",
   "Equilibrium" = "equilibrium"
 )
 # reverse vector for labeller in plot
@@ -127,23 +47,23 @@ v_index_names <- c(
   "Amplitude\nratio (5%)" = "amplitude_ratio.95",
   "Amplitude\nratio (2.5%)" = "amplitude_ratio.975",
   "CV offset" = "CV_offset",
-  "Mean daily\nCV offset" = "CV_offset_mean_daily",
-  "CV ratio" = "CV_ratio",
   "Slope" = "slope",
-  "Change ratio" = "change_ratio",
-  "Correlation" = "correlation_micro_macro"
 )
 v_index_labels <- setNames(names(v_index_names), v_index_names)
 
 
 e_index_names <- c(
+  "Offset of\nmaxima (95%)" = "offset_of_maxima.95",
   "Offset of\nmaxima (97.5%)" = "offset_of_maxima.975",
   "Offset of\nmaxima (100%)" = "offset_of_maxima1.00",
+  "Mean daily offset\nof maxima (95%)" = "offset_of_maxima_mean_daily.95",
   "Mean daily offset\nof maxima (97.5%)" = "offset_of_maxima_mean_daily.975",
   "Mean daily offset\nof maxima (100%)" = "offset_of_maxima_mean_daily1.00",
   "p95 of daily\noffset of maxima" = "p95_daily_maxima_offset",
+  "Offset of\nminima (5%)" = "offset_of_minima.05",
   "Offset of\nminima (2.5%)" = "offset_of_minima.025",
   "Offset of\nminima (0%)" = "offset_of_minima.00",
+  "Mean daily offset\nof minima (5%)" = "offset_of_minima_mean_daily.05",
   "Mean daily offset\nof minima (2.5%)" = "offset_of_minima_mean_daily.025",
   "Mean daily offset\nof minima (0%)" = "offset_of_minima_mean_daily.00",
   "p5 of daily\noffset of minima" = "p5_daily_minima_offset"
@@ -162,9 +82,9 @@ index_var$index <- factor(index_var$index, levels = all_index_names)
 # filter & format data
 index_var_a <- index_var %>%
   filter(index %in% a_index_names) %>%
-  rename(a = a_marg_r2, v = v_marg_r2, e = e_marg_r2, site = ave_site_r2) %>%
-  pivot_longer(cols = c(a, v, e, site), names_to = "aspect", values_to = "var_part")
-index_var_a$aspect <- factor(index_var_a$aspect, levels = c("a", "v", "e", "site"))
+  rename(a = a_marg_r2, v = v_marg_r2, e = e_marg_r2, err = err_marg_r2, site = ave_site_r2) %>%
+  pivot_longer(cols = c(a, v, e, err, site), names_to = "aspect", values_to = "var_part")
+index_var_a$aspect <- factor(index_var_a$aspect, levels = c("a", "v", "e", "err", "site"))
 
 # pie chart plot
 a_plot <- ggplot(index_var_a, aes(x = "", y = var_part, fill = aspect)) +
@@ -175,7 +95,7 @@ a_plot <- ggplot(index_var_a, aes(x = "", y = var_part, fill = aspect)) +
     labeller = as_labeller(a_index_labels)
   ) +
   scale_fill_manual(
-    values = c("a" = "#4C5B88", "v" = "#C9C766", "e" = "#C96666", "site" = "#AAA"),
+    values = c("a" = "#4C5B88", "v" = "#C9C766", "e" = "#C96666", err = "#000", "site" = "#AAA"),
     name = "Variance in index\nexplained by"
   ) +
   scale_size(range = c(2, 10)) +
@@ -194,9 +114,9 @@ ggsave("plots/varpie_a.jpg", a_plot, width = 4000, height = 1300, unit = "px", d
 # filter & format data
 index_var_v <- index_var %>%
   filter(index %in% v_index_names) %>%
-  rename(a = a_marg_r2, v = v_marg_r2, e = e_marg_r2, site = ave_site_r2) %>%
-  pivot_longer(cols = c(a, v, e, site), names_to = "aspect", values_to = "var_part")
-index_var_v$aspect <- factor(index_var_v$aspect, levels = c("a", "v", "e", "site"))
+  rename(a = a_marg_r2, v = v_marg_r2, e = e_marg_r2, err = err_marg_r2, site = ave_site_r2) %>%
+  pivot_longer(cols = c(a, v, e, err, site), names_to = "aspect", values_to = "var_part")
+index_var_v$aspect <- factor(index_var_v$aspect, levels = c("a", "v", "e", "err", "site"))
 
 # pie chart plot
 v_plot <- ggplot(index_var_v, aes(x = "", y = var_part, fill = aspect)) +
@@ -206,7 +126,7 @@ v_plot <- ggplot(index_var_v, aes(x = "", y = var_part, fill = aspect)) +
     ncol = 5,
     labeller = as_labeller(v_index_labels)
   ) +
-  scale_fill_manual(values = c("a" = "#4C5B88", "v" = "#C9C766", "e" = "#C96666", "site" = "#AAA")) +
+  scale_fill_manual(values = c("a" = "#4C5B88", "v" = "#C9C766", "e" = "#C96666", err = "#000", "site" = "#AAA")) +
   scale_size(range = c(2, 10)) +
   theme_void() +
   labs(title = "(b) Indices targeting variability\n") +
@@ -220,9 +140,9 @@ ggsave("plots/varpie_v.jpg", v_plot, width = 4000, height = 3400, unit = "px", d
 # filter & format data
 index_var_e <- index_var %>%
   filter(index %in% e_index_names) %>%
-  rename(a = a_marg_r2, v = v_marg_r2, e = e_marg_r2, site = ave_site_r2) %>%
-  pivot_longer(cols = c(a, v, e, site), names_to = "aspect", values_to = "var_part")
-index_var_e$aspect <- factor(index_var_e$aspect, levels = c("a", "v", "e", "site"))
+  rename(a = a_marg_r2, v = v_marg_r2, e = e_marg_r2, err = err_marg_r2, site = ave_site_r2) %>%
+  pivot_longer(cols = c(a, v, e, err, site), names_to = "aspect", values_to = "var_part")
+index_var_e$aspect <- factor(index_var_e$aspect, levels = c("a", "v", "e", "err", "site"))
 
 # pie chart plot
 e_plot <- ggplot(index_var_e, aes(x = "", y = var_part, fill = aspect)) +
@@ -232,7 +152,7 @@ e_plot <- ggplot(index_var_e, aes(x = "", y = var_part, fill = aspect)) +
     ncol = 5,
     labeller = as_labeller(e_index_labels)
   ) +
-  scale_fill_manual(values = c("a" = "#4C5B88", "v" = "#C9C766", "e" = "#C96666", "site" = "#AAA")) +
+  scale_fill_manual(values = c("a" = "#4C5B88", "v" = "#C9C766", "e" = "#C96666", err = "#000", "site" = "#AAA")) +
   scale_size(range = c(2, 10)) +
   theme_void() +
   labs(title = "(c) Indices targeting extremes\n") +
@@ -241,6 +161,7 @@ e_plot <- ggplot(index_var_e, aes(x = "", y = var_part, fill = aspect)) +
 ggsave("plots/varpie_e.jpg", e_plot, width = 4000, height = 2200, unit = "px", dpi = 600)
 
 
+### DELETE LATER ###
 
 #--plot of indices ranked by R²------------------------------------------------------------------
 
@@ -432,3 +353,74 @@ ggsave("plots/best_indices.svg", combined_var_plots,
 
 ggsave("plots/best_indices.jpg", combined_var_plots,
   width = 4400, height = 3600, unit = "px", dpi = 600)
+
+#--Index correlation figure---------------------------------------------------------
+
+# read table of indices calculated for all micro/macroclimate combinations
+indices <- read.csv("data/4-indices/indices.csv")
+
+# set names for figure
+index_names <- c(
+  "Mean offset",
+  "Median offset",
+  "Equilibrium",
+  "Offset of SDs",
+  "Mean daily offset of SDs",
+  "Amplitude offset (5%)",
+  "Amplitude offset (2.5%)",
+  "Mean daily amplitude offset",
+  "Amplitude ratio (5%)",
+  "Amplitude ratio (2.5%)",
+  "CV offset",
+  "Slope",
+  "Offset of maxima (95%)",
+  "Offset of maxima (97.5%)",
+  "Offset of maxima (100%)",
+  "Mean daily offset of maxima (95%)",
+  "Mean daily offset of maxima (97.5%)",
+  "Mean daily offset of maxima (100%)",
+  "p95 of daily offset of maxima",
+  "Offset of minima (5%)",
+  "Offset of minima (2.5%)",
+  "Offset of minima (0%)",
+  "Mean daily offset of minima (5%)",
+  "Mean daily offset of minima (2.5%)",
+  "Mean daily offset of minima (0%)",
+  "p5 of daily offset of minima"
+)
+colnames(indices) <- index_names
+
+# create correlation table
+index_cor <- cor(indices)
+
+# create figure for all indices
+custom_palette <- colorRampPalette(c("grey50", "white", "grey50"))(100)
+tiff("plots/index_correlations_all.tiff",
+     height = 40, width = 40, units = "cm",
+     compression = "lzw", res = 300
+)
+corrplot(index_cor,
+         type = "lower", method = "color", addCoef.col = "black",
+         tl.col = "black", addgrid.col = "gray", tl.srt = 45, col = custom_palette
+)
+dev.off()
+
+# only final selection of indices
+indices_selected <- select(indices, c(
+  "Mean offset", "Median offset",
+  "Amplitude offset (5%)", "Change ratio",
+  "Offset of maxima (97.5%)", "Offset of minima (2.5%)"
+))
+# create correlation table
+index_cor_sel <- cor(indices_selected)
+
+# save figure
+# tiff("plots/index_correlations_selected.tiff", height = 17, width = 17, units="cm",
+#    compression = "lzw", res = 300)
+svg("plots/index_correlation_selected.svg")
+corrplot(index_cor_sel,
+         type = "lower", method = "color", addCoef.col = "black",
+         tl.col = "black", addgrid.col = "gray", tl.srt = 45, col = custom_palette
+)
+dev.off()
+

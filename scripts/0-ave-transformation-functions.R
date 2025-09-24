@@ -4,10 +4,10 @@
 # Author      : ###
 # Affiliation : ###
 # Contact     : ###
-# Date        : 2025-04-13
+# Date        : 2025-09-24
 # Version     : 1.0
 # License     : MIT
-# Notes       : Supplementary code for "A framework to quantify microclimate modulation using average, variability, and extremes"
+# Notes       : Supplementary code for "Average, Variability, and Extremes: A framework to quantify microclimate temperature modulation"
 # ===============================================================================================================================
 
 library(tidyverse)

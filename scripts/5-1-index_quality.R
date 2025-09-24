@@ -4,10 +4,10 @@
 # Author      : ###
 # Affiliation : ###
 # Contact     : ###
-# Date        : 2025-04-13
+# Date        : 2025-09-24
 # Version     : 1.0
 # License     : MIT
-# Notes       : Supplementary code for "A framework to quantify microclimate modulation using average, variability, and extremes"
+# Notes       : Supplementary code for "Average, Variability, and Extremes: A framework to quantify microclimate temperature modulation"
 # ===============================================================================================================================
 
 rm(list = ls())
@@ -36,6 +36,7 @@ index_variances <- data.frame(
   a_marg_r2 = numeric(),
   v_marg_r2 = numeric(),
   e_marg_r2 = numeric(),
+  err_marg_r2 = numeric(),
   ave_marg_r2 = numeric(),
   ave_site_r2 = numeric()
 )
@@ -46,33 +47,33 @@ for (i in 1:length(index_names)) {
   # linear model a
   formula_a <- reformulate("a + (1 | site)", response = index) # formula for linear model
   model_a <- lmer(formula_a, data = indices_std)
-
   # calculate r²s for model quality/site effect
   a_r2 <- performance::r2_nakagawa(model_a, tolerance = 0)
   a_marg_r2 <- a_r2$R2_marginal
 
-
   # linear model v
   formula_v <- reformulate("v + (1 | site)", response = index) # formula for linear model
   model_v <- lmer(formula_v, data = indices_std)
-
   # calculate r²s for model quality/site effect
   v_r2 <- performance::r2_nakagawa(model_v, tolerance = 0)
   v_marg_r2 <- v_r2$R2_marginal
 
-
   # linear model e
   formula_e <- reformulate("e + (1 | site)", response = index) # formula for linear model
   model_e <- lmer(formula_e, data = indices_std)
-
-
   # calculate r²s for model quality/site effect
   e_r2 <- performance::r2_nakagawa(model_e, tolerance = 0)
   e_marg_r2 <- e_r2$R2_marginal
+  
+  # linear model err
+  formula_err <- reformulate("err + (1 | site)", response = index) # formula for linear model
+  model_err <- lmer(formula_err, data = indices_std)
+  # calculate r²s for model quality/site effect
+  err_r2 <- performance::r2_nakagawa(model_err, tolerance = 0)
+  err_marg_r2 <- err_r2$R2_marginal
 
-
-  # linear model a+v+e
-  formula_ave <- reformulate("a+v+e + (1 | site)", response = index) # formula for linear model
+  # linear model a+v+e+err
+  formula_ave <- reformulate("a + v + e + err + (1 | site)", response = index) # formula for linear model
   model_ave <- lmer(formula_ave, data = indices_std)
 
   # calculate r²s for model quality/site effect

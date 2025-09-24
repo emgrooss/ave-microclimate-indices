@@ -1,3 +1,14 @@
+# ===============================================================================================================================
+# Title       : 2-2-indices_microclimf_correlations.R
+# Description : Calculate PCA and correlations between microclimate indices from microclimate data
+# Author      : ###
+# Affiliation : ###
+# Contact     : ###
+# Date        : 2025-09-24
+# Version     : 1.0
+# License     : MIT
+# Notes       : Supplementary code for "Average, Variability, and Extremes: A framework to quantify microclimate temperature modulation"
+# ===============================================================================================================================
 
 rm(list = ls())
 
