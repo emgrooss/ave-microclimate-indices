@@ -24,7 +24,7 @@ library(svglite)
 #--Variance partition figure---------------------------------------------------------
 
 # get table of variance results
-index_var <- read.csv("data/4-index-performance/index_performance.csv")
+index_var <- read.csv("data/5-index-performance/index_performance.csv")
 
 # get index names
 index_names <- index_var$index
@@ -47,7 +47,7 @@ v_index_names <- c(
   "Amplitude\nratio (5%)" = "amplitude_ratio.95",
   "Amplitude\nratio (2.5%)" = "amplitude_ratio.975",
   "CV offset" = "CV_offset",
-  "Slope" = "slope",
+  "Slope" = "slope"
 )
 v_index_labels <- setNames(names(v_index_names), v_index_names)
 
@@ -132,7 +132,7 @@ v_plot <- ggplot(index_var_v, aes(x = "", y = var_part, fill = aspect)) +
   labs(title = "(b) Indices targeting variability\n") +
   theme(legend.position = "none")
 
-ggsave("plots/varpie_v.jpg", v_plot, width = 4000, height = 3400, unit = "px", dpi = 600)
+ggsave("plots/varpie_v.jpg", v_plot, width = 4000, height = 2200, unit = "px", dpi = 600)
 
 
 # extreme modulation indices plot
@@ -158,7 +158,7 @@ e_plot <- ggplot(index_var_e, aes(x = "", y = var_part, fill = aspect)) +
   labs(title = "(c) Indices targeting extremes\n") +
   theme(legend.position = "none")
 
-ggsave("plots/varpie_e.jpg", e_plot, width = 4000, height = 2200, unit = "px", dpi = 600)
+ggsave("plots/varpie_e.jpg", e_plot, width = 4000, height = 3400, unit = "px", dpi = 600)
 
 
 ### DELETE LATER ###

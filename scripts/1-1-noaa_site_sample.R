@@ -18,7 +18,6 @@ library(sf)
 library(rnaturalearth)
 library(rnaturalearthdata)
 library(climate)
-library(R.utils)
 
 #--selection of sites with hourly temperature data in 2020---------------------------------
 
@@ -157,4 +156,4 @@ sample_map <- ggplot(data = world) +
   geom_sf(data = coordinates_sample_sf, size = 3, col = "black", fill = "red", shape = 21) +
   theme_bw()
 sample_map
-ggsave("plots/coord_map_sample.png", sample_map, width = 3000, height = 1500, unit = "px")
+ggsave("plots/coord_map_sample.png", sample_map, width = 6000, height = 3000, unit = "px", dpi = 600)

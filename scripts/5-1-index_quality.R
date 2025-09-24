@@ -24,8 +24,8 @@ indices[sapply(indices, is.infinite)] <- NA # turn infs into NA
 indices_std <- indices
 indices_std[, -c(1:2)] <- as.data.frame(lapply(indices[, -c(1:2)], function(x) (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE)))
 
-# list of index names: column names without the first 5 columns (index, site, a, v, e)
-index_names <- colnames(indices_std[, -c(1:5)])
+# list of index names: column names without the first 5 columns (index, site, a, v, e, err)
+index_names <- colnames(indices_std[, -c(1:6)])
 
 
 ## variance partitioning
@@ -87,7 +87,7 @@ for (i in 1:length(index_names)) {
   index_variances[i, ] <- c(
     as.character(index),
     round(a_marg_r2, 5), round(v_marg_r2, 5), round(e_marg_r2, 5),
-    round(ave_marg_r2, 5), round(ave_site_r2, 5)
+    round(err_marg_r2, 5), round(ave_marg_r2, 5), round(ave_site_r2, 5)
   )
 }
 
