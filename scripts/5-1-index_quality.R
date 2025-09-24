@@ -17,7 +17,7 @@ library(tidyverse)
 library(performance)
 library(ggcorrplot)
 
-indices <- read.csv("data/3-indices/indices_new.csv")
+indices <- read.csv("data/4-indices/indices.csv")
 
 # z standardize all columns, excluding col 1 and 2 (index number and site)
 indices[sapply(indices, is.infinite)] <- NA # turn infs into NA
@@ -90,4 +90,4 @@ for (i in 1:length(index_names)) {
   )
 }
 
-write.csv(index_variances, file = "data/4-index-performance/index_performance.csv", row.names = FALSE)
+write.csv(index_variances, file = "data/5-index-performance/index_performance.csv", row.names = FALSE)

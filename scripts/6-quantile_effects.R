@@ -23,7 +23,7 @@ library(grid)
 source("scripts/0-index-functions.R")
 
 # load microclimate simulations
-files <- list.files("data/2-microclimate-simulations/microclimate-simulations/")
+files <- list.files("data/3-microclimate-simulations/")
 
 
 #--Offset of maxima----------------------------------------------------------------------
@@ -45,7 +45,7 @@ offset_of_maxima_q <- data.frame(
 )
 
 for (filename in files) {
-  data <- read_rds(paste("data/2-microclimate-simulations/microclimate-simulations/", filename, sep = ""))
+  data <- read_rds(paste("data/3-microclimate-simulations/", filename, sep = ""))
   climates <- data[["Data"]]
   parameters <- data[["Parameters"]]
 
@@ -65,12 +65,12 @@ for (filename in files) {
   )
 }
 
-write.csv(offset_of_maxima_q, "data/4-index-performance/quantiles/offset_of_maxima_quantiles.csv")
+write.csv(offset_of_maxima_q, "data/5-index-performance/quantiles/offset_of_maxima_quantiles.csv")
 
 
 # calculate index quality metrics
 
-offset_of_maxima_q <- read.csv("data/4-index-performance/quantiles/offset_of_maxima_quantiles.csv")
+offset_of_maxima_q <- read.csv("data/5-index-performance/quantiles/offset_of_maxima_quantiles.csv")
 
 # z standardize all columns, excluding col 1 and 2 (index and site)
 offset_of_maxima_q_std <- offset_of_maxima_q
@@ -131,7 +131,7 @@ for (i in 1:length(index_names)) {
   max_offset_performance[i, ] <- c(as.character(index), a_marg_r2, v_marg_r2, e_marg_r2, ave_marg_r2, ave_site_r2)
 }
 
-write.csv(max_offset_performance, "data/4-index-performance/quantiles/offset_of_maxima_quantiles_lm.csv")
+write.csv(max_offset_performance, "data/5-index-performance/quantiles/offset_of_maxima_quantiles_lm.csv")
 
 
 #--Offset of maxima----------------------------------------------------------------------
@@ -154,7 +154,7 @@ offset_of_minima_q <- data.frame(
 
 
 for (filename in files) {
-  data <- read_rds(paste("data/2-microclimate-simulations/microclimate-simulations/", filename, sep = ""))
+  data <- read_rds(paste("data/3-microclimate-simulations/", filename, sep = ""))
   climates <- data[["Data"]]
   parameters <- data[["Parameters"]]
 
@@ -175,12 +175,12 @@ for (filename in files) {
   )
 }
 
-write.csv(offset_of_minima_q, "data/4-index-performance/quantiles/offset_of_minima_quantiles.csv")
+write.csv(offset_of_minima_q, "data/5-index-performance/quantiles/offset_of_minima_quantiles.csv")
 
 
 # calculate index quality metrics
 
-offset_of_minima_q <- read.csv("data/4-index-performance/quantiles/offset_of_minima_quantiles.csv")
+offset_of_minima_q <- read.csv("data/5-index-performance/quantiles/offset_of_minima_quantiles.csv")
 
 # z standardize all columns, excluding col 1 and 2 (index and site)
 offset_of_minima_q_std <- offset_of_minima_q
@@ -242,7 +242,7 @@ for (i in 1:length(index_names)) {
 }
 
 
-write.csv(min_offset_performance, "data/4-index-performance/quantiles/offset_of_minima_quantiles_lm.csv")
+write.csv(min_offset_performance, "data/5-index-performance/quantiles/offset_of_minima_quantiles_lm.csv")
 
 
 
@@ -266,7 +266,7 @@ amplitude_ratio_q <- data.frame(
 
 
 for (filename in files) {
-  data <- read_rds(paste("data/2-microclimate-simulations/microclimate-simulations/", filename, sep = ""))
+  data <- read_rds(paste("data/3-microclimate-simulations/", filename, sep = ""))
   climates <- data[["Data"]]
   parameters <- data[["Parameters"]]
 
@@ -287,12 +287,12 @@ for (filename in files) {
   )
 }
 
-write.csv(amplitude_ratio_q, "data/4-index-performance/quantiles/amplitude_ratio_quantiles.csv")
+write.csv(amplitude_ratio_q, "data/5-index-performance/quantiles/amplitude_ratio_quantiles.csv")
 
 
 # calculate index quality metrics
 
-amplitude_ratio_q <- read.csv("data/4-index-performance/quantiles/amplitude_ratio_quantiles.csv")
+amplitude_ratio_q <- read.csv("data/5-index-performance/quantiles/amplitude_ratio_quantiles.csv")
 
 # z standardize all columns, excluding col 1 and 2 (index and site)
 amplitude_ratio_q_std <- amplitude_ratio_q
@@ -352,7 +352,7 @@ for (i in 1:length(index_names)) {
   amplitude_ratio_performance[i, ] <- c(as.character(index), a_marg_r2, v_marg_r2, e_marg_r2, ave_marg_r2, ave_site_r2)
 }
 
-write.csv(amplitude_ratio_performance, "data/4-index-performance/quantiles/amplitude_ratio_quantiles_lm.csv")
+write.csv(amplitude_ratio_performance, "data/5-index-performance/quantiles/amplitude_ratio_quantiles_lm.csv")
 
 
 #--Amplitude offset---------------------------------------------------------------------------
@@ -375,7 +375,7 @@ amplitude_offset_q <- data.frame(
 
 
 for (filename in files) {
-  data <- read_rds(paste("data/2-microclimate-simulations/microclimate-simulations/", filename, sep = ""))
+  data <- read_rds(paste("data/3-microclimate-simulations/", filename, sep = ""))
   climates <- data[["Data"]]
   parameters <- data[["Parameters"]]
 
@@ -396,11 +396,11 @@ for (filename in files) {
   )
 }
 
-write.csv(amplitude_offset_q, "data/4-index-performance/quantiles/amplitude_offset_quantiles.csv")
+write.csv(amplitude_offset_q, "data/5-index-performance/quantiles/amplitude_offset_quantiles.csv")
 
 # calculate index quality metrics
 
-amplitude_offset_q <- read.csv("data/4-index-performance/quantiles/amplitude_offset_quantiles.csv")
+amplitude_offset_q <- read.csv("data/5-index-performance/quantiles/amplitude_offset_quantiles.csv")
 
 # z standardize all columns, excluding col 1 and 2 (index and site)
 amplitude_offset_q_std <- amplitude_offset_q
@@ -460,14 +460,14 @@ for (i in 1:length(index_names)) {
   amplitude_offset_performance[i, ] <- c(as.character(index), a_marg_r2, v_marg_r2, e_marg_r2, ave_marg_r2, ave_site_r2)
 }
 
-write.csv(amplitude_offset_performance, "data/4-index-performance/quantiles/amplitude_offset_quantiles_lm.csv")
+write.csv(amplitude_offset_performance, "data/5-index-performance/quantiles/amplitude_offset_quantiles_lm.csv")
 
 
 #--Plots-------------------------------------------------------------------------------------
 
 # offset of maxima
 
-max_offset_performance <- read.csv("data/4-index-performance/quantiles/offset_of_maxima_quantiles_lm.csv")
+max_offset_performance <- read.csv("data/5-index-performance/quantiles/offset_of_maxima_quantiles_lm.csv")
 
 index_names <- max_offset_performance$index
 max_offset_performance$index <- factor(max_offset_performance$index, levels = index_names)
@@ -495,7 +495,7 @@ colors <- c("a" = "#30406E", "v" = "#A4A23C", "e" = "#A43C3C", "total" = "#AAA")
 
 # offset of minima
 
-min_offset_performance <- read.csv("data/4-index-performance/quantiles/offset_of_minima_quantiles_lm.csv")
+min_offset_performance <- read.csv("data/5-index-performance/quantiles/offset_of_minima_quantiles_lm.csv")
 
 index_names <- min_offset_performance$index
 min_offset_performance$index <- factor(min_offset_performance$index, levels = index_names)
@@ -523,7 +523,7 @@ min_max_offset <- grid.arrange(max_offset_marginal_r2, min_offset_marginal_r2, n
 
 # amplitude offset
 
-amplitude_offset_performance <- read.csv("data/4-index-performance/quantiles/amplitude_offset_quantiles_lm.csv")
+amplitude_offset_performance <- read.csv("data/5-index-performance/quantiles/amplitude_offset_quantiles_lm.csv")
 
 index_names <- amplitude_offset_performance$index
 amplitude_offset_performance$index <- factor(amplitude_offset_performance$index, levels = index_names)
@@ -549,7 +549,7 @@ amplitude_offset_performance$index <- factor(amplitude_offset_performance$index,
 
 # amplitude ratio
 
-amplitude_ratio_performance <- read.csv("data/4-index-performance/quantiles/amplitude_ratio_quantiles_lm.csv")
+amplitude_ratio_performance <- read.csv("data/5-index-performance/quantiles/amplitude_ratio_quantiles_lm.csv")
 
 index_names <- amplitude_ratio_performance$index
 amplitude_ratio_performance$index <- factor(amplitude_ratio_performance$index, levels = index_names)

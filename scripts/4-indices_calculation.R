@@ -15,11 +15,11 @@ rm(list = ls())
 library(tidyverse)
 source("scripts/0-index-functions.R")
 
-files <- list.files("data/2-microclimate-simulations/")
+files <- list.files("data/3-microclimate-simulations/")
 
 indices <- map_dfr(1:length(files), function(i) {
   filename <- files[i]
-  data <- read_rds(paste("data/2-microclimate-simulations/", filename, sep = ""))
+  data <- read_rds(paste("data/3-microclimate-simulations/", filename, sep = ""))
   climates <- data[["Data"]]
   parameters <- data[["Parameters"]]
   index_vector <- microclimate_indices(
@@ -34,4 +34,4 @@ indices <- map_dfr(1:length(files), function(i) {
   )
 })
 
-write.csv(indices, "data/3-indices/indices.csv")
+write.csv(indices, "data/4-indices/indices.csv")
