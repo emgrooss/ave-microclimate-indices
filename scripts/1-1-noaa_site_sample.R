@@ -108,32 +108,50 @@ noaa_map
 
 write_csv(sites, "data/1-noaa/2020-available-noaa.csv")
 
-#--random sample of 1 per country------------------------------------------------------------
+
+
+#--sample 20 sites across globe------------------------------------------------------------
+
+library(spsurvey)
 
 sites <- read_csv("data/1-noaa/2020-available-noaa.csv")
-sample_by_country <- sites %>%
-  group_by(CTRY) %>%
-  slice_sample(n = 1)
-write_csv(sample_by_country, "data/1-noaa/2020-noaa-sample.csv")
-# this file contains full meta information about the sampled sites
+
+sites_sf <- st_as_sf(sites, coords = c("LON", "LAT"), crs = 4326)
+
+# select 20 sites evenly distributed across globe using spsurvey GRTS sampling
+set.seed(37073)
+sample <- spsurvey::grts(
+  sframe = sites_sf,
+  n_base = 20,
+  DesignID = "WorldSample",
+  projcrs_check = FALSE
+)
+
+# get sampled site info
+selected_sites <- as.data.frame(sample$sites_base)
+selected_sites <- selected_sites %>%
+  select(USAF, WBAN, `STATION NAME`, CTRY, LON = X, LAT = Y)
+
+write_csv(selected_sites, "data/1-noaa/2020-noaa-sample.csv") # this file contains full meta information about the sampled sites
+
 
 # write file with only station code and country
-sample_by_country <- read_csv("data/1-noaa/2020-noaa-sample.csv")
+selected_sites <- read_csv("data/1-noaa/2020-noaa-sample.csv")
 
 sites_sample <- data.frame(
   code = character(),
   country = character()
 )
-for (i in 1:nrow(sample_by_country)) {
-  filename <- paste0(sample_by_country[i, "USAF"], "-", sample_by_country[i, "WBAN"])
-  country <- sample_by_country[i, "CTRY"]
+for (i in 1:nrow(selected_sites)) {
+  filename <- paste0(selected_sites[i, "USAF"], "-", selected_sites[i, "WBAN"])
+  country <- selected_sites[i, "CTRY"]
   sites_sample[i, ] <- c(code = filename, country = country)
 }
 write_csv(sites_sample, "data/1-noaa/2020-noaa-sample-sites.csv")
 
 # make plot of sample sites
 world <- ne_countries(scale = "medium", returnclass = "sf")
-coordinates_sample_sf <- st_as_sf(sample_by_country, coords = c("LON", "LAT"), crs = 4326, agr = "constant")
+coordinates_sample_sf <- st_as_sf(selected_sites, coords = c("LON", "LAT"), crs = 4326, agr = "constant")
 sample_map <- ggplot(data = world) +
   geom_sf() +
   geom_sf(data = coordinates_sample_sf, size = 3, col = "black", fill = "red", shape = 21) +

@@ -14,20 +14,20 @@ rm(list = ls())
 
 library(tidyverse)
 
-# load functoions to simulate microclimate
+# load functions to simulate microclimate
 source("scripts/0-ave-transformation-functions.R")
 
 # get site names
 sites <- read.csv("data/1-noaa/2020-noaa-sample-sites.csv")
-country <- paste0(sites$country, "-", sites$code)
+stations <- paste0(sites$country, "-", sites$code)
 
 # create dataframe of all possible combinations of AVE parameters
-parameters <- expand.grid(a = seq(-10, 10, 2), v = seq(-0.5, 0.5, 0.1), e = seq(-1, 1, 0.2))
+parameters <- expand.grid(a = seq(-5, 5, 2), v = seq(-0.5, 0.5, 0.2), e = seq(-1, 1, 0.4), err = seq(0, 1, 0.2))
 parameters$ID <- 1001:(1000 + nrow(parameters)) # add ID
 
 # apply transformation functions to all sites and parameter combinations
 # to simulate the microclimates
-for (site in country) {
+for (site in stations) {
   # read in data
   macro <- read.csv(paste("data/1-noaa/noaa-sample-data/", site, ".csv", sep = ""))
 
@@ -40,19 +40,22 @@ for (site in country) {
     a <- parameters$a[i]
     v <- parameters$v[i]
     e <- parameters$e[i]
+    err <- parameters$err[i]
 
     df <- macro
     df$micro <- change_average(climate.variable = df$macro, average.offset = a)
     df$micro <- change_variance(climate.variable = df$micro, time.variable = macro$date, variance.increase = v)
     df$micro <- change_extremes(climate.variable = df$micro, heat.stabilisation = e, cold.stabilisation = e)
+    df$micro <- add_error(climate.variable = df$micro, error.sd = err)
 
     # create a list containing parameters and data
-    final <- list(Parameters = c(site = site, a = a, v = v, e = e), Data = df)
+    final <- list(Parameters = c(site = site, a = a, v = v, e = e, err = err), Data = df)
     return(final)
   })
 
   # writing each dataframe to separate files
-  walk2(simulations, 1:nrow(parameters), ~ write_rds(.x, file = paste("1-data/2-microclimate-simulations/microclimate-simulations/", site, "_a", parameters$a[.y], "_v", parameters$v[.y], "_e", parameters$e[.y], ".rds", sep = "")))
+  walk2(simulations, 1:nrow(parameters), ~ write_rds(.x, file = paste("data/2-microclimate-simulations/",
+                                                                      site, "_a", parameters$a[.y], "_v", parameters$v[.y], "_e", parameters$e[.y], "_err", parameters$err[.y], ".rds", sep = "")))
 
   print(paste0("Processed ", site))
 }

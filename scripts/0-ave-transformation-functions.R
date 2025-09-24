@@ -73,7 +73,7 @@ add_error <- function(climate.variable, error.sd = 0, error.autocor = 0.8) {
   
   # generate autocorrelated error series
   e <- w <- rnorm(length(climate.variable), sd = error.sd)
-  for (t in 2:length(climate.variable)) e[t] <- error_autocor*e[t-1] + w[t]
+  for (t in 2:length(climate.variable)) e[t] <- error.autocor*e[t-1] + w[t]
   
   # combine with temperature
   microclimate <- climate.variable + e
