@@ -77,6 +77,40 @@ index_var <- filter(index_var, index %in% all_index_names)
 index_var$index <- factor(index_var$index, levels = all_index_names)
 
 
+# all in one plot
+
+# filter & format data
+index_var_all <- index_var %>%
+  rename(a = a_marg_r2, v = v_marg_r2, e = e_marg_r2, error = err_marg_r2, site = ave_site_r2) %>%
+  pivot_longer(cols = c(a, v, e, error, site), names_to = "aspect", values_to = "var_part")
+index_var_all$aspect <- factor(index_var_all$aspect, levels = c("a", "v", "e", "error", "site"))
+
+# pie chart plot
+all_plot <- ggplot(index_var_all, aes(x = "", y = var_part, fill = aspect)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y") +
+  facet_wrap(~index,
+             ncol = 4,
+             labeller = as_labeller(all_index_labels)
+  ) +
+  scale_fill_manual(
+    values = c("a" = "#4C5B88", "v" = "#C9C766", "e" = "#C96666", error = "#000", "site" = "#AAA"),
+    name = "Variance in index\nexplained by"
+  ) +
+  scale_size(range = c(2, 10)) +
+  theme_void() +
+  theme(
+    legend.box.background = element_rect(colour = "black"),
+    legend.box.margin = margin(5, 5, 5, 5)
+  )
+
+all_plot
+
+ggsave("plots/varpie_all.jpg", all_plot, width = 4000, height = 6000, unit = "px", dpi=600)
+
+
+
+
 # average modulation indices plot
 
 # filter & format data

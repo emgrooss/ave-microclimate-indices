@@ -80,7 +80,6 @@ for (i in 1:length(index_names)) {
   ave_r2 <- performance::r2_nakagawa(model_ave, tolerance = 0)
   ave_marg_r2 <- ave_r2$R2_marginal
   ave_conditional_r2 <- ave_r2$R2_conditional
-  ave_marginal_r2 <- ave_r2$R2_marginal
   ave_site_r2 <- ave_conditional_r2 - ave_marginal_r2
 
 
