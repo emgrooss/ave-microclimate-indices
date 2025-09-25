@@ -15,9 +15,6 @@ rm(list = ls())
 library(tidyverse)
 library(lmerTest)
 library(performance)
-library(RColorBrewer)
-library(gridExtra)
-library(grid)
 
 # load functions to calculate indices
 source("scripts/0-index-functions.R")
@@ -111,16 +108,24 @@ for (i in 1:length(index_names)) {
   v_r2 <- performance::r2_nakagawa(model_v, tolerance = 0)
   v_marg_r2 <- v_r2$R2_marginal
 
+  # linear model e
+  formula_e <- reformulate("e + (1 | site)", response = index) # formula for linear model
+  model_e <- lmer(formula_e, data = offset_of_maxima_q_std)
+  
+  # calculate r²s for model quality
+  e_r2 <- performance::r2_nakagawa(model_e, tolerance = 0)
+  e_marg_r2 <- e_r2$R2_marginal
+  
   # linear model err
   formula_err <- reformulate("err + (1 | site)", response = index) # formula for linear model
-  model_err <- lmer(formula_err, data = indices_std)
+  model_err <- lmer(formula_err, data = offset_of_maxima_q_std)
   # calculate r²s for model quality/site effect
   err_r2 <- performance::r2_nakagawa(model_err, tolerance = 0)
   err_marg_r2 <- err_r2$R2_marginal
   
   # linear model a+v+e+err
   formula_ave <- reformulate("a + v + e + err + (1 | site)", response = index) # formula for linear model
-  model_ave <- lmer(formula_ave, data = indices_std)
+  model_ave <- lmer(formula_ave, data = offset_of_maxima_q_std)
 
   # calculate r²s for ave model
   ave_r2 <- performance::r2_nakagawa(model_ave, tolerance = 0)
@@ -147,6 +152,7 @@ offset_of_minima_q <- data.frame(
   a = numeric(),
   v = numeric(),
   e = numeric(),
+  err = numeric(),
   p7.5 = numeric(),
   p6.25 = numeric(),
   p5 = numeric(),
@@ -235,14 +241,14 @@ for (i in 1:length(index_names)) {
 
   # linear model err
   formula_err <- reformulate("err + (1 | site)", response = index) # formula for linear model
-  model_err <- lmer(formula_err, data = indices_std)
+  model_err <- lmer(formula_err, data = offset_of_minima_q_std)
   # calculate r²s for model quality/site effect
   err_r2 <- performance::r2_nakagawa(model_err, tolerance = 0)
   err_marg_r2 <- err_r2$R2_marginal
   
   # linear model a+v+e+err
   formula_ave <- reformulate("a + v + e + err + (1 | site)", response = index) # formula for linear model
-  model_ave <- lmer(formula_ave, data = indices_std)
+  model_ave <- lmer(formula_ave, data = offset_of_minima_q_std)
   
   # calculate r²s for ave model
   ave_r2 <- performance::r2_nakagawa(model_ave, tolerance = 0)
@@ -357,14 +363,14 @@ for (i in 1:length(index_names)) {
 
   # linear model err
   formula_err <- reformulate("err + (1 | site)", response = index) # formula for linear model
-  model_err <- lmer(formula_err, data = indices_std)
+  model_err <- lmer(formula_err, data = amplitude_offset_q)
   # calculate r²s for model quality/site effect
   err_r2 <- performance::r2_nakagawa(model_err, tolerance = 0)
   err_marg_r2 <- err_r2$R2_marginal
   
   # linear model a+v+e+err
   formula_ave <- reformulate("a + v + e + err + (1 | site)", response = index) # formula for linear model
-  model_ave <- lmer(formula_ave, data = indices_std)
+  model_ave <- lmer(formula_ave, data = amplitude_offset_q)
   
   # calculate r²s for ave model
   ave_r2 <- performance::r2_nakagawa(model_ave, tolerance = 0)
